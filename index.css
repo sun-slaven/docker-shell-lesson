@@ -1,0 +1,20 @@
+
+.text{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-left: 7%;
+}
+.content{
+    margin: 0px 7%;
+}
+
+.file-title{
+    margin-bottom: 30px !important;
+}
+.file-title:hover, .dir-title:hover{
+    cursor: pointer;
+}
+.label{
+    margin: 10px;
+    display: inline-block !important;
+}

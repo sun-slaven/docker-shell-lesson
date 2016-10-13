@@ -1,0 +1,18 @@
+1. 在build时，若Dockerfile里写
+···
+RUN cd nginx-1.9.6
+RUN ./configure && make && make install
+···
+时则会报错: "./configure 不是一个命令或路径错误"
+而合起来写成：
+···
+RUN cd nginx-1.9.6 && ./configure && make && make install
+···
+则不会报错。 这是为什么？？？
+
+
+2. 在Dockerfile里写
+···
+RUN /usr/local/nginx/sbin/nginx
+···
+为何不能启动nginx，我只能放在list.sh里执行。这是为什么？？？

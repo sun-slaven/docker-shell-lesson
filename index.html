@@ -1,0 +1,378 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>孙文峰的docker实验</title>
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head><body>
+<div class="text">
+    实现思路:
+    <ol>
+        <li>基于ceotos最小安装镜像,安装nginx作为静态服务器，并通过sed命令设置服务器root为“/”</li>
+        <li>将脚本COPY到docker中去，并在run时执行，若指定--path 参数，则可以指定相应的路径。否则为"/etc/"</li>
+        <li>运行 `docker run -v ~/workspace/homework:/sunwenfeng --name homework_v2 -p 80:80 CONTAINER_ID [-path "/usr/"]`</li>
+    </ol>
+</div><div class="content">
+<div class="file-title list-group-item active" data-toggle="collapse" data-target=".file"> 文件类型 <span class="badge">
+64</span></div>
+<div class="file">
+<span class="label label-default">
+BUILDTIME
+</span>
+<span class="label label-primary">
+DIR_COLORS
+</span>
+<span class="label label-success">
+DIR_COLORS.256color
+</span>
+<span class="label label-info">
+DIR_COLORS.lightbgcolor
+</span>
+<span class="label label-warning">
+GREP_COLORS
+</span>
+<span class="label label-default">
+adjtime.rpmsave
+</span>
+<span class="label label-primary">
+aliases
+</span>
+<span class="label label-success">
+bashrc
+</span>
+<span class="label label-info">
+centos-release
+</span>
+<span class="label label-warning">
+centos-release-upstream
+</span>
+<span class="label label-default">
+crypttab
+</span>
+<span class="label label-primary">
+csh.cshrc
+</span>
+<span class="label label-success">
+csh.login
+</span>
+<span class="label label-info">
+dracut.conf
+</span>
+<span class="label label-warning">
+environment
+</span>
+<span class="label label-default">
+exports
+</span>
+<span class="label label-primary">
+filesystems
+</span>
+<span class="label label-success">
+fstab
+</span>
+<span class="label label-info">
+group
+</span>
+<span class="label label-warning">
+group-
+</span>
+<span class="label label-default">
+gshadow
+</span>
+<span class="label label-primary">
+gshadow-
+</span>
+<span class="label label-success">
+host.conf
+</span>
+<span class="label label-info">
+hostname
+</span>
+<span class="label label-warning">
+hosts
+</span>
+<span class="label label-default">
+hosts.allow
+</span>
+<span class="label label-primary">
+hosts.deny
+</span>
+<span class="label label-success">
+inputrc
+</span>
+<span class="label label-info">
+issue
+</span>
+<span class="label label-warning">
+issue.net
+</span>
+<span class="label label-default">
+krb5.conf
+</span>
+<span class="label label-primary">
+ld.so.cache
+</span>
+<span class="label label-success">
+ld.so.conf
+</span>
+<span class="label label-info">
+libaudit.conf
+</span>
+<span class="label label-warning">
+libuser.conf
+</span>
+<span class="label label-default">
+locale.conf
+</span>
+<span class="label label-primary">
+localtime
+</span>
+<span class="label label-success">
+login.defs
+</span>
+<span class="label label-info">
+machine-id
+</span>
+<span class="label label-warning">
+motd
+</span>
+<span class="label label-default">
+mtab
+</span>
+<span class="label label-primary">
+nsswitch.conf
+</span>
+<span class="label label-success">
+nsswitch.conf.bak
+</span>
+<span class="label label-info">
+os-release
+</span>
+<span class="label label-warning">
+passwd
+</span>
+<span class="label label-default">
+passwd-
+</span>
+<span class="label label-primary">
+printcap
+</span>
+<span class="label label-success">
+profile
+</span>
+<span class="label label-info">
+protocols
+</span>
+<span class="label label-warning">
+rc.local
+</span>
+<span class="label label-default">
+redhat-release
+</span>
+<span class="label label-primary">
+resolv.conf
+</span>
+<span class="label label-success">
+rpc
+</span>
+<span class="label label-info">
+securetty
+</span>
+<span class="label label-warning">
+services
+</span>
+<span class="label label-default">
+shadow
+</span>
+<span class="label label-primary">
+shadow-
+</span>
+<span class="label label-success">
+shells
+</span>
+<span class="label label-info">
+system-release
+</span>
+<span class="label label-warning">
+system-release-cpe
+</span>
+<span class="label label-default">
+vconsole.conf
+</span>
+<span class="label label-primary">
+virc
+</span>
+<span class="label label-success">
+wgetrc
+</span>
+<span class="label label-info">
+yum.conf
+</span>
+</div>
+<div class="dir-title list-group-item active" data-toggle="collapse" data-target=".dir"> 目录类型 <span class="badge">
+54</span></div>
+<div class="dir collapse in">
+<div class="list-group-item">
+X11
+</div>
+<div class="list-group-item">
+alternatives
+</div>
+<div class="list-group-item">
+bash_completion.d
+</div>
+<div class="list-group-item">
+binfmt.d
+</div>
+<div class="list-group-item">
+chkconfig.d
+</div>
+<div class="list-group-item">
+cron.daily
+</div>
+<div class="list-group-item">
+cron.hourly
+</div>
+<div class="list-group-item">
+dbus-1
+</div>
+<div class="list-group-item">
+default
+</div>
+<div class="list-group-item">
+depmod.d
+</div>
+<div class="list-group-item">
+dracut.conf.d
+</div>
+<div class="list-group-item">
+gcrypt
+</div>
+<div class="list-group-item">
+gnupg
+</div>
+<div class="list-group-item">
+gss
+</div>
+<div class="list-group-item">
+init.d
+</div>
+<div class="list-group-item">
+ld.so.conf.d
+</div>
+<div class="list-group-item">
+logrotate.d
+</div>
+<div class="list-group-item">
+modprobe.d
+</div>
+<div class="list-group-item">
+modules-load.d
+</div>
+<div class="list-group-item">
+openldap
+</div>
+<div class="list-group-item">
+opt
+</div>
+<div class="list-group-item">
+pam.d
+</div>
+<div class="list-group-item">
+pkcs11
+</div>
+<div class="list-group-item">
+pki
+</div>
+<div class="list-group-item">
+pm
+</div>
+<div class="list-group-item">
+popt.d
+</div>
+<div class="list-group-item">
+prelink.conf.d
+</div>
+<div class="list-group-item">
+profile.d
+</div>
+<div class="list-group-item">
+python
+</div>
+<div class="list-group-item">
+rc.d
+</div>
+<div class="list-group-item">
+rc0.d
+</div>
+<div class="list-group-item">
+rc1.d
+</div>
+<div class="list-group-item">
+rc2.d
+</div>
+<div class="list-group-item">
+rc3.d
+</div>
+<div class="list-group-item">
+rc4.d
+</div>
+<div class="list-group-item">
+rc5.d
+</div>
+<div class="list-group-item">
+rc6.d
+</div>
+<div class="list-group-item">
+rpm
+</div>
+<div class="list-group-item">
+rsyslog.d
+</div>
+<div class="list-group-item">
+sasl2
+</div>
+<div class="list-group-item">
+security
+</div>
+<div class="list-group-item">
+selinux
+</div>
+<div class="list-group-item">
+skel
+</div>
+<div class="list-group-item">
+ssl
+</div>
+<div class="list-group-item">
+sysconfig
+</div>
+<div class="list-group-item">
+sysctl.d
+</div>
+<div class="list-group-item">
+systemd
+</div>
+<div class="list-group-item">
+terminfo
+</div>
+<div class="list-group-item">
+tmpfiles.d
+</div>
+<div class="list-group-item">
+udev
+</div>
+<div class="list-group-item">
+xdg
+</div>
+<div class="list-group-item">
+xinetd.d
+</div>
+<div class="list-group-item">
+yum
+</div>
+<div class="list-group-item">
+yum.repos.d
+</div>
+</div>
+</div>
+</body></html>
